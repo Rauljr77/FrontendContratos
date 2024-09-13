@@ -1,0 +1,65 @@
+<div class="grid">
+  <div class="col">
+    <input type="text" pInputText [(ngModel)]="value" />
+    <div>Valor: {{value}}</div>
+  </div>
+  <div class="col">
+    <p-calendar [(ngModel)]="birthDate" dateFormat="dd-mm-yy" dataType="string"/>
+    <div>Fecha nacimiento: {{birthDate}}</div>
+  </div>
+  <div class="col">
+    <p-dropdown 
+      [options]="cities" 
+      [(ngModel)]="selectedCity" 
+      optionLabel="name"
+      placeholder="Select a City" />
+    <div>{{selectedCity | json}}</div>
+  </div>
+</div> 
+  
+<hr>
+  
+<div class="card">
+  <p-table
+    #dt2
+    [value]="customers"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [globalFilterFields]="['name', 'country.name', 'company', 'representative.name']"
+    [rowsPerPageOptions]="[5, 10, 20]"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex">
+        <p-iconField iconPosition="left" class="ml-auto">
+            <p-inputIcon>
+              <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input 
+              pInputText 
+              type="text" 
+              (input)="dt2.filterGlobal(filterValue, 'contains')" 
+              [(ngModel)]="filterValue"
+              placeholder="Search keyword" />
+        </p-iconField>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:25%">Name</th>
+        <th style="width:25%">Country</th>
+        <th style="width:25%">Company</th>
+        <th style="width:25%">Representative</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+      <tr>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.country.name }}</td>
+        <td>{{ customer.company }}</td>
+        <td>{{ customer.representative.name }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+  
