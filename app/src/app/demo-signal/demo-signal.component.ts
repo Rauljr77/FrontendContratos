@@ -2,12 +2,14 @@
  * Imports Angular
  */
 import { CommonModule } from '@angular/common';
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 /**
  * Imports Primeng
  */
+import { AccordionModule } from 'primeng/accordion';
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -23,6 +25,7 @@ import { getCities, getCustomers } from '../common/demo.utils';
   imports: [
     CommonModule, 
     FormsModule, 
+    AccordionModule,
     CalendarModule,
     DropdownModule, 
     IconFieldModule,
@@ -35,6 +38,8 @@ import { getCities, getCustomers } from '../common/demo.utils';
   styleUrl: './demo-signal.component.scss'
 })
 export class DemoSignalComponent implements OnInit {
+  router = inject(Router);
+
   value     = signal<string>("");
   birthDate = signal<string>("");
 
@@ -52,5 +57,9 @@ export class DemoSignalComponent implements OnInit {
   ngOnInit(): void {
     this.cities.update(() => getCities());
     this.customers.update(() => getCustomers());
+  }
+
+  goToDemoForm(): void {
+    this.router.navigate(['demo-form']);
   }
 }
