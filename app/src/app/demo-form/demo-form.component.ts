@@ -21,7 +21,8 @@ import { TagModule } from 'primeng/tag';
  */
 import { City } from '../interface/demo';
 import { getCities } from '../common/demo.utils';
-import { ErrorInputComponent } from '../shared/error/error-input/error-input.component';
+import { ErrorComponent } from '../shared/error/error.component';
+import { getConfigError, getConfigErrorCalendar } from '../shared/validators/form-validators';
 
 @Component({
   selector: 'app-demo-form',
@@ -36,13 +37,12 @@ import { ErrorInputComponent } from '../shared/error/error-input/error-input.com
     InputIconModule,
     InputTextModule,
     TagModule,
-    ErrorInputComponent
+    ErrorComponent
   ],
   templateUrl: './demo-form.component.html',
   styleUrl: './demo-form.component.scss'
 })
 export class DemoFormComponent implements OnInit {
-  errorList: string[] = ["Campo requerido", "Colocar nombre", "No colocar números"];
 
   value     = signal<string>("");
   birthDate = signal<string>("");
@@ -50,21 +50,30 @@ export class DemoFormComponent implements OnInit {
   cities      = signal<City[]>([]);
   selectedCity= signal<City | null>(null);
 
-  isBlurList = signal<boolean[]>(initIsBlurList(ATTRIBUTES_LENGTH));
+  isBlurList  = signal<boolean[]>(initIsBlurList(ATTRIBUTES_LENGTH));
+  isValid     = computed(() => {
+    const valueErrors     = getConfigError(this.value(), this.isBlurList()[0]).errorItems;
+    const birthDateErrors = getConfigErrorCalendar(this.birthDate(), this.isBlurList()[1]).errorItems;
 
-  isValid = computed(() => { return (this.value() && this.selectedCity()) });
+    const hasValueErrors      = valueErrors.some(error => error.condition());
+    const hasBirthDateErrors  = birthDateErrors.some(error => error.condition());
+    const hasCityErrors       = this.selectedCity() === null;
 
-  ngOnInit(): void { this.cities.update(() => getCities()); }
+    return !hasValueErrors && !hasBirthDateErrors && !hasCityErrors;
+  });
 
-  onBlur(position: number): void { this.isBlurList()[position] = true; }
+  getErrorList          = getConfigError;
+  getErrorCalendarList  = getConfigErrorCalendar;
+
+  ngOnInit(): void { 
+    this.cities.update(() => getCities()); 
+  }
+
+  onBlur(position: number): void { 
+    this.isBlurList()[position] = true; 
+  }
 }
 
 const ATTRIBUTES_LENGTH: number = 3;
 
-const initIsBlurList = (length: number): boolean[] => {
-  let list: boolean[] = [];
-  for (let index = 0; index < length; index++) {
-    list.push(false);
-  }
-  return list;
-}
+const initIsBlurList = (length: number): boolean[] => Array.from({ length }, () => false);

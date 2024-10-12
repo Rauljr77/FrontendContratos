@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorCalendarComponent } from './error-calendar.component';
+import { ErrorInputComponent } from './error.component';
 
-describe('ErrorCalendarComponent', () => {
-  let component: ErrorCalendarComponent;
-  let fixture: ComponentFixture<ErrorCalendarComponent>;
+describe('ErrorInputComponent', () => {
+  let component: ErrorInputComponent;
+  let fixture: ComponentFixture<ErrorInputComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ErrorCalendarComponent]
+      imports: [ErrorInputComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ErrorCalendarComponent);
+    fixture = TestBed.createComponent(ErrorInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

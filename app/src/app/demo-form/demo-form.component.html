@@ -5,10 +5,7 @@
       <label for="textValue">Valor</label>
     </p-floatLabel>
     <div>Valor: {{value()}}</div>
-    @if (isBlurList()[0] && !value()) {
-      <!-- <p class="bg-red-700 text-white">El campo es requerido</p> -->
-      <error-input [errorList]="errorList"></error-input>
-    }
+    <error [error]="(getErrorList(value(), isBlurList()[0]))"/>
   </div>
   <div class="col">
     <p-floatLabel>
@@ -17,6 +14,7 @@
         dateFormat="dd-mm-yy"  
         id="birthDate" 
         inputId="birthDate"
+        [readonlyInput]="true"
         [showIcon]="true"
         [showOnFocus]="true"
         [(ngModel)]="birthDate" 
@@ -25,9 +23,7 @@
       <label for="birthDate">Fecha de nacimiento</label>
     </p-floatLabel>
     <div>Fecha nacimiento: {{birthDate()}}</div>
-    @if (isBlurList()[1] && !birthDate()) {
-      <p class="bg-red-700 text-white">El campo es requerido</p>
-    }
+    <error [error]="(getErrorCalendarList(birthDate(), isBlurList()[1]))"/>
   </div>
   <div class="col">
     <p-floatLabel>
@@ -45,8 +41,8 @@
     @if (selectedCity()) {
       <div>{{selectedCity() | json}}</div>
     }
-    @if (isBlurList()[2] && !selectedCity()) {
-      <p class="bg-red-700 text-white">El campo es requerido</p>
+    @if (isBlurList()[2]) {
+      <error [error]="(getErrorList(selectedCity()?.name || ''))"/>
     }
   </div>
 </div> 
