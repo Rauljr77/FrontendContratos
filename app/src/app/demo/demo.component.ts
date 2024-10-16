@@ -2,7 +2,7 @@
  * Imports Angular
  */
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 /**
@@ -21,7 +21,6 @@ import { TableModule } from 'primeng/table';
  */
 import { City, Customer } from '../interface/demo';
 import { getCities, getCustomers } from '../common/demo.utils';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-demo',
@@ -49,14 +48,9 @@ export class DemoComponent implements OnInit {
   selectedCity: City    | undefined;
 
   customers!: Customer[];
-  router = inject(Router);
 
   ngOnInit(): void {
     this.cities     = getCities();
     this.customers  = getCustomers();
-  }
-
-  goToDemoForm(): void {
-    this.router.navigate(['demo-form']);
   }
 }
