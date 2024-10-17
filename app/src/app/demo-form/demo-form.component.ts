@@ -43,7 +43,7 @@ import { getConfigError, getConfigErrorCalendar } from '../shared/validators/for
   styleUrl: './demo-form.component.scss'
 })
 export class DemoFormComponent implements OnInit {
-
+  
   value     = signal<string>("");
   birthDate = signal<string>("");
 
