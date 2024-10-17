@@ -70,7 +70,11 @@ export class DemoFormComponent implements OnInit {
   }
 
   onBlur(position: number): void { 
-    this.isBlurList()[position] = true; 
+    this.isBlurList.update(list => {
+      const newList = [...list];
+      newList[position] = true;
+      return newList;
+    });
   }
 }
 
