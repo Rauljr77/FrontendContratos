@@ -8,7 +8,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { ErrorComponent } from '../shared/error/error.component';
-import { getConfigError, getConfigErrorCalendar } from '../shared/validators/form-validators';
 
 describe('DemoFormComponent', () => {
   let component: DemoFormComponent;
