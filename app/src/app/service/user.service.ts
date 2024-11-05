@@ -1,19 +1,20 @@
 import { Injectable, signal } from '@angular/core';
 import { IUser } from '../interface/demo';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   
-  private readonly apiUrl: string = "http://localhost:5000/users";
+  private readonly apiUrl: string = environment.apiUrl;
 
   data = signal<IUser[]>([]);
   error = signal<string | null>(null);
 
   async getUsers() {
     try {
-      const response = await fetch(this.apiUrl, { 
+      const response = await fetch(`${this.apiUrl}/GetUsers`, { 
         method  : 'GET',
         headers : {
           'Content-Type': 'application/json',
@@ -22,10 +23,8 @@ export class UserService {
       });
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
-      console.log("Data service", data);
       this.data.set(data);
     } catch (error: any) {
-      console.error('There was a problem with the fetch operation:', error);
       this.error.set(error.message);
     }
   }

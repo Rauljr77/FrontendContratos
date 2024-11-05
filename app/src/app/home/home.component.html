@@ -1,0 +1,85 @@
+<div class="grid">
+  <div class="col">
+    <p-floatLabel>
+      <p-dropdown 
+        id="year"
+        [appendTo]="'body'"
+        [filter]="true"
+        [options]="dataYear()" 
+        [showClear]="true"
+        [(ngModel)]="selectedYear"
+        (onChange)="onChangeYear($event.value)"
+        />
+      <label for="year">Año</label>
+    </p-floatLabel>
+  </div>
+</div> 
+
+@if (dataFinance().length > 0) {
+  <div class="grid">
+    <div class="col">
+      <p-stepper>
+        @for (item of dataFinance(); track $index) {
+          <p-stepperPanel header="{{item.yearMonth | date: 'MMMM'}}">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+                <div class="flex flex-column h-12rem">
+                  <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                    Contenido  {{item.yearMonth | date: 'MMMM'}}
+                  </div>
+                </div>
+                <div class="flex pt-4 justify-content-between">
+                  <p-button 
+                    label="Back" 
+                    icon="pi pi-arrow-left" 
+                    [disabled]="($index === 0)"
+                    (onClick)="prevCallback.emit()" 
+                  />
+                  <p-button 
+                    label="Next" 
+                    icon="pi pi-arrow-right" 
+                    iconPos="right" 
+                    [disabled]="($index === (dataFinance().length -1))"
+                    (onClick)="nextCallback.emit()" />
+                </div>
+            </ng-template>
+          </p-stepperPanel>
+        }
+      </p-stepper>
+    </div>
+  </div>
+}
+
+<!-- @if (dataFinance().length > 0) {
+  <div class="card flex justify-content-center">
+    <p-stepper>
+      @for (item of dataFinance(); track $index) {
+        <p-stepperPanel header="{{item.yearMonth | date: 'MMMM'}}">
+          <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+              <div class="flex flex-column h-12rem">
+                <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
+                  Contenido  {{item.yearMonth | date: 'MMMM'}}
+                </div>
+              </div>
+              <div class="flex pt-4 justify-content-between">
+                <p-button 
+                  label="Back" 
+                  icon="pi pi-arrow-left" 
+                  [disabled]="($index === 0)"
+                  (onClick)="prevCallback.emit()" 
+                />
+                <p-button 
+                  label="Next" 
+                  icon="pi pi-arrow-right" 
+                  iconPos="right" 
+                  [disabled]="($index === (dataFinance().length -1))"
+                  (onClick)="nextCallback.emit()" />
+              </div>
+          </ng-template>
+        </p-stepperPanel>
+      }
+    </p-stepper>
+  </div>
+} -->
+
+
+  

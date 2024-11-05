@@ -34,15 +34,15 @@ export interface IWeatherForecast {
 }
 
 export interface IUser {
-  _id: string;
-  id: number;
-  roleName: string;
-  username: string;
-  email: string;
-  fullname: string;
-  status: boolean;
-  createdAt: string;
+  _id         : string;
+  id          : number;
+  roleName    : string;
+  username    : string;
+  email       : string;
+  fullname    : string;
+  status      : boolean;
+  createdAt   : string;
   passwordHash: string;
-  updatedAt: string;
-  permissions: string;
+  updatedAt   : string;
+  permissions : string;
 }
