@@ -2,12 +2,13 @@
  * Imports Angular
  */
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 /**
  * Imports Primeng
  */
+import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -24,6 +25,7 @@ import { FinanceService } from '../app/finance.service';
   imports: [
     CommonModule, 
     FormsModule,
+    AccordionModule,
     ButtonModule,
     DropdownModule,
     FloatLabelModule,
