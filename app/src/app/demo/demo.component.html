@@ -4,7 +4,7 @@
     <div>Valor: {{value}}</div>
   </div>
   <div class="col">
-    <p-calendar [(ngModel)]="birthDate" dateFormat="dd-mm-yy" dataType="string"/>
+    <p-calendar [(ngModel)]="birthDate" dateFormat="dd-mm-yy" dataType="string" [appendTo]="'body'"/>
     <div>Fecha nacimiento: {{birthDate}}</div>
   </div>
   <div class="col">

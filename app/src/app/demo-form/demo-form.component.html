@@ -1,0 +1,55 @@
+<div class="grid">
+  <div class="col">
+    <p-floatLabel>
+      <input id="textValue" type="text" pInputText [(ngModel)]="value" placeholder="Valor" (blur)="onBlur(0)"/>
+      <label for="textValue">Valor</label>
+    </p-floatLabel>
+    <div>Valor: {{value()}}</div>
+    <error [error]="(getErrorList(value(), isBlurList()[0]))"/>
+  </div>
+  <div class="col">
+    <p-floatLabel>
+      <p-calendar 
+        dataType="string"
+        dateFormat="dd-mm-yy"  
+        id="birthDate" 
+        inputId="birthDate"
+        [appendTo]="'body'"
+        [readonlyInput]="true"
+        [showIcon]="true"
+        [showOnFocus]="true"
+        [(ngModel)]="birthDate" 
+        (onBlur)="onBlur(1)"
+      />
+      <label for="birthDate">Fecha de nacimiento</label>
+    </p-floatLabel>
+    <div>Fecha nacimiento: {{birthDate()}}</div>
+    <error [error]="(getErrorCalendarList(birthDate(), isBlurList()[1]))"/>
+  </div>
+  <div class="col">
+    <p-floatLabel>
+      <p-dropdown 
+        id="city"
+        optionLabel="name"
+        placeholder="Select a City"
+        [showClear]="true" 
+        [options]="cities()" 
+        [(ngModel)]="selectedCity" 
+        (onBlur)="onBlur(2)"
+        />
+      <label for="city">Ciudad</label>
+    </p-floatLabel>
+    @if (selectedCity()) {
+      <div>{{selectedCity() | json}}</div>
+    }
+    @if (isBlurList()[2]) {
+      <error [error]="(getErrorList(selectedCity()?.name || ''))"/>
+    }
+  </div>
+</div> 
+  
+@if (isValid()) {
+  <p class="bg-teal-400 text-white">Formulario válido</p>
+} @else {
+  <p class="bg-red-700 text-white">Formulario inválido</p>
+}  

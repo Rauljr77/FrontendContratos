@@ -1,1 +1,17 @@
-<router-outlet />
+<div class="card flex">
+  <div class="col-auto">
+    <p-inplace closable="closable">
+      <ng-template pTemplate="display">
+        <span>
+          <i class="pi pi-bars"></i>
+        </span>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <p-menu [model]="items" />
+      </ng-template>
+    </p-inplace>
+  </div>
+  <div class="col">
+    <router-outlet />
+  </div>
+</div>

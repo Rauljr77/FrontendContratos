@@ -1,0 +1,81 @@
+<div class="grid">
+  <div class="col">
+    <p-floatLabel>
+      <p-dropdown 
+        id="year"
+        [appendTo]="'body'"
+        [filter]="true"
+        [options]="dataYear()" 
+        [showClear]="true"
+        [(ngModel)]="selectedYear"
+        (onChange)="onChangeYear($event.value)"
+        />
+      <label for="year">Año</label>
+    </p-floatLabel>
+  </div>
+</div> 
+
+@if (dataFinance().length > 0) {
+  <div class="grid">
+    <div class="col">
+      <p-stepper>
+        @for (item of dataFinance(); track $index) {
+          <p-stepperPanel header="{{item.yearMonth | date: 'MMMM'}}">
+            <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
+              <div class="grid">
+                @if ($index > 0) {
+                  <p-button 
+                    label="Atrás" 
+                    icon="pi pi-arrow-left" 
+                    (onClick)="prevCallback.emit()" 
+                  />
+                }
+                @if ($index < (dataFinance().length - 1)) {
+                  <p-button 
+                    label="Siguiente" 
+                    icon="pi pi-arrow-right" 
+                    iconPos="right" 
+                    [disabled]="($index === (dataFinance().length -1))"
+                    (onClick)="nextCallback.emit()" 
+                  />
+                }
+              </div>
+              <div class="grid">
+                <div class="col">
+                  <p class="bg-teal-700 text-white text-center py-3">Ingresos</p>
+                  @for (detail of item.income; track $index) {
+                    <p>{{detail.description}} : <span><b>$ {{detail.amount}}</b></span></p>
+                  }
+                </div>
+                <div class="col">
+                  <p class="bg-red-700 text-white text-center py-3">Egresos</p>
+                  @for (detail of item.expenses; track $index) {
+                    <p>{{detail.description}} : <span><b>$ {{detail.amount}}</b></span></p>
+                  }
+                </div>
+              </div>
+              <div class="grid">
+                @if ($index > 0) {
+                  <p-button 
+                    label="Atrás" 
+                    icon="pi pi-arrow-left" 
+                    (onClick)="prevCallback.emit()" 
+                  />
+                }
+                @if ($index < (dataFinance().length - 1)) {
+                  <p-button 
+                    label="Siguiente" 
+                    icon="pi pi-arrow-right" 
+                    iconPos="right" 
+                    [disabled]="($index === (dataFinance().length -1))"
+                    (onClick)="nextCallback.emit()" 
+                  />
+                }
+              </div>
+            </ng-template>
+          </p-stepperPanel>
+        }
+      </p-stepper>
+    </div>
+  </div>
+}
